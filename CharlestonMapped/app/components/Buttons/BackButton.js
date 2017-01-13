@@ -1,3 +1,8 @@
+/*
+*
+* Cannot currently pass navigator object to class
+*
+*/
 import { 
   TouchableOpacity,
   AppRegistry,

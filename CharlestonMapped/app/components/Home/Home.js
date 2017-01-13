@@ -24,32 +24,30 @@ export default class Home extends Component {
     return this.refs['OPTIONLIST'];
   }
 
-
   _location(place) {
-
-  this.setState({
+    this.setState({
       ...this.state,
       location: place
     });
   }
-
   _navigate(property){
-  this.props.navigator.push({
-    name: 'TheMap',
-    passProps: {
-      name: property
-    }
-  })
-}
+    this.props.navigator.push({
+      name: 'TheMap',
+      passProps: {
+        name: property
+      }
+    })
+  }
 
   render() {
 
-  const hitSlop = {
-    top: 15,
-    bottom: 15,
-    left: 15,
-    right: 15,
-  } 
+    const hitSlop = {
+      top: 15,
+      bottom: 15,
+      left: 15,
+      right: 15,
+    } 
+
     return( 
       <View style={styles.container}>
          <Text style={styles.location}>Choose your location:</Text>
@@ -64,17 +62,17 @@ export default class Home extends Component {
             <Option value = {{id : "charleston"}}>Charleston, IL</Option>
          </Select>    
 
-        <TouchableHighlight 
-        hitSlop = {hitSlop}
-        activeOpacity={0.4} 
-        style={styles.enterButton} 
-        onPress={ () => this._navigate() } >
-          <Text style={styles.centerText}>Enter</Text>
-        </TouchableHighlight>
+         <TouchableHighlight 
+         hitSlop = {hitSlop}
+         activeOpacity={0.4} 
+         style={styles.enterButton} 
+         onPress={ () => this._navigate() } >
+           <Text style={styles.centerText}>Enter</Text>
+         </TouchableHighlight>
 
-        <OptionList ref="OPTIONLIST"/>
+         <OptionList ref="OPTIONLIST"/>
       </View>
-    )
+    );
   }
 }
 

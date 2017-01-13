@@ -15,7 +15,8 @@ export default class TheMap extends Component {
 
   constructor(props){
     super(props);
-
+      // Initial region doesn't seem to be available
+      // Have tried passing with {this.props.region}
       this.region = {
         latitude: 39.4961,
         longitude: 88.1762,
@@ -27,9 +28,9 @@ export default class TheMap extends Component {
         longitude: 88.1762,
       };
     
-    this.state = {
-      newLocation: false,
-    }
+      this.state = {
+        newLocation: false,
+      }
     
   }
    

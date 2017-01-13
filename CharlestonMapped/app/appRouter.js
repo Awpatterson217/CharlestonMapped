@@ -12,15 +12,6 @@ import TheMap from './components/Map/Map';
 
 export default class App extends Component {
 
-renderScene(route, navigator) {
-	if(route.name == 'Home'){
-		return <Home navigator={navigator} {...route.passprops} />	
-	}
-	if(route.name == 'TheMap'){
-		return <TheMap navigator={navigator} {...route.passProps} />
-	}
-}
-
 _navigate(property){
 	this.props.navigator.push({
 		name: 'TheMap',
@@ -29,6 +20,15 @@ _navigate(property){
 		},
 		type: type
 	})
+}
+// Anything passed in the _navigate function is available here
+renderScene(route, navigator) {
+  if(route.name == 'Home'){
+    return <Home navigator={navigator} {...route.passprops} />  
+  }
+  if(route.name == 'TheMap'){
+    return <TheMap navigator={navigator} {...route.passProps} />
+  }
 }
 
   render() {
@@ -42,7 +42,6 @@ _navigate(property){
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {
