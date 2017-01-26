@@ -67,8 +67,10 @@ export default class TheMap extends Component {
    //const {region, position} = this.state
     const { height: windowHeight } = Dimensions.get('window');
 
+    // Dynamic sizing 
     const varTop = windowHeight - 125;
        
+    // hitSlop property defines touch/ button proximity 
     const hitSlop = {
       top: 15,
       bottom: 15,
@@ -89,32 +91,42 @@ export default class TheMap extends Component {
     
     return( 
       
+      // Holds entire scene
       <View style={styles.container}>
 
+        // Back button
         <View style={styles.backButtontray}>
           <TouchableHighlight 
             hitSlop = {hitSlop}
             activeOpacity={0.7} 
             style={styles.backButton} 
-            onPress={ () => this._navigate() }>
+            onPress={ () => this._navigate() }
+          >
               <Image style={styles.image} source={require('../../Assets/back.png')} />
-          </TouchableHighlight >
+          </TouchableHighlight>
         </View>
 
+        // Find Me button
         <View style={bbStyle(varTop)}>
           <TouchableOpacity  
             hitSlop = {hitSlop}
             activeOpacity={0.7} 
             style={styles.mapButton} 
-            onPress={ () => this._findMe() }>
-              <Text style={{fontWeight: 'bold', color: 'black',}}>Find Me</Text>
+            onPress={ () => this._findMe() }
+          >
+              <Text style={{fontWeight: 'bold', color: 'black',}}>
+                Find Me
+              </Text>
           </TouchableOpacity>
         </View>
 
+        // MapView requires key to Google Maps API
+        // located in ../android/app/src/main/AndroidManifest.xml
         <MapView
           style={styles.map}
           region={region}
         >
+          // Outer circle - current location  
           {position && (
             <MapView.Circle
               center={position}
@@ -123,6 +135,7 @@ export default class TheMap extends Component {
               fillColor={'rgba(112,185,213,0.30)'}
             />
           )}
+          // Inner circle - current location
           {position && (
             <MapView.Circle
               center={position}
