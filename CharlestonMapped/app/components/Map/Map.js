@@ -22,24 +22,21 @@ export default class TheMap extends Component {
         longitude: 88.1762,
         latitudeDelta: 0.04,
         longitudeDelta: 0.02,
-      };
+      }
       this.position = {
         latitude: 39.4961,
         longitude: 88.1762,
-      };
-    
+      }
       this.state = {
         newLocation: false,
       }
-    
   }
    
   _findMe(){
-    this.state.newLocation = true;
+    this.state.newLocation = true
     navigator.geolocation.getCurrentPosition(
       ({coords}) => {
         const {latitude, longitude} = coords
-
         this.setState({
           position: {
             latitude,
@@ -54,7 +51,6 @@ export default class TheMap extends Component {
         })
       },
       (error) => alert(JSON.stringify(error)),
-
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     )
   }
@@ -64,6 +60,7 @@ export default class TheMap extends Component {
   }
 
   render() {
+    
     let region = this.state.newLocation ? this.state.region : this.props.region;
     let position = this.state.newLocation ? this.state.position : this.props.position;
 
@@ -89,7 +86,9 @@ export default class TheMap extends Component {
         alignItems: 'center',
       }
     }
+    
     return( 
+      
       <View style={styles.container}>
 
         <View style={styles.backButtontray}>
@@ -133,11 +132,12 @@ export default class TheMap extends Component {
             />
           )}
         </MapView>
-      </View>
-    );
-  }
-}
 
+      </View>
+
+    ); // End return
+  } // End render
+} // End TheMap
 
 const styles = StyleSheet.create({
   container: {
