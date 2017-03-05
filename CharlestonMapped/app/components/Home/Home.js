@@ -6,7 +6,6 @@ import {
   View
  } from 'react-native';
  import React, { Component, PropTypes, } from 'react';
-
 import DropDown, {
   Select,
   Option,
@@ -23,7 +22,6 @@ export default class Home extends Component {
   _getOptionList() {
     return this.refs['OPTIONLIST'];
   }
-
   _location(place) {
     this.setState({
       ...this.state,
@@ -40,14 +38,12 @@ export default class Home extends Component {
   }
 
   render() {
-
     const hitSlop = {
       top: 15,
       bottom: 15,
       left: 15,
       right: 15,
     } 
-
     return( 
       <View style={styles.container}>
          <Text style={styles.location}>Choose your location:</Text>
@@ -69,7 +65,6 @@ export default class Home extends Component {
          onPress={ () => this._navigate() } >
            <Text style={styles.centerText}>Enter</Text>
          </TouchableHighlight>
-
          <OptionList ref="OPTIONLIST"/>
       </View>
     );
