@@ -12,7 +12,6 @@ import {
  import MapView from 'react-native-maps'
 
 export default class TheMap extends Component {
-
   constructor(props){
     super(props);
       // Initial region doesn't seem to be available
@@ -31,7 +30,6 @@ export default class TheMap extends Component {
         newLocation: false,
       }
   }
-   
   _findMe(){
     this.state.newLocation = true
     navigator.geolocation.getCurrentPosition(
@@ -54,22 +52,17 @@ export default class TheMap extends Component {
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     )
   }
-
   _navigate(property){
   this.props.navigator.pop()
   }
 
   render() {
-    
     let region = this.state.newLocation ? this.state.region : this.props.region;
     let position = this.state.newLocation ? this.state.position : this.props.position;
-
    //const {region, position} = this.state
     const { height: windowHeight } = Dimensions.get('window');
-
     // Dynamic sizing 
     const varTop = windowHeight - 125;
-       
     // hitSlop property defines touch/ button proximity 
     const hitSlop = {
       top: 15,
@@ -77,7 +70,6 @@ export default class TheMap extends Component {
       left: 15,
       right: 15,
     }
-
     bbStyle = function(vheight) {
       return {
         position: 'absolute',
@@ -88,12 +80,9 @@ export default class TheMap extends Component {
         alignItems: 'center',
       }
     }
-    
-    return( 
-      
+    return(
       // Holds entire scene
       <View style={styles.container}>
-
         // Back button
         <View style={styles.backButtontray}>
           <TouchableHighlight 
@@ -105,7 +94,6 @@ export default class TheMap extends Component {
               <Image style={styles.image} source={require('../../Assets/back.png')} />
           </TouchableHighlight>
         </View>
-
         // Find Me button
         <View style={bbStyle(varTop)}>
           <TouchableOpacity  
@@ -119,7 +107,6 @@ export default class TheMap extends Component {
               </Text>
           </TouchableOpacity>
         </View>
-
         // MapView requires key to Google Maps API
         // located in ../android/app/src/main/AndroidManifest.xml
         <MapView
@@ -145,9 +132,7 @@ export default class TheMap extends Component {
             />
           )}
         </MapView>
-
       </View>
-
     ); // End return
   } // End render
 } // End TheMap
@@ -204,4 +189,5 @@ const styles = StyleSheet.create({
     height: 25,
   },
 }) 
+
 AppRegistry.registerComponent('TheMap', () => TheMap);
