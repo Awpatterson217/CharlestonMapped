@@ -6,12 +6,10 @@ import {
   View
  } from 'react-native';
  import React, { Component } from 'react';
-
 import Home from './components/Home/Home';
 import TheMap from './components/Map/Map';
 
 export default class App extends Component {
-
 _navigate(property){
 	this.props.navigator.push({
 		name: 'TheMap',
@@ -21,6 +19,7 @@ _navigate(property){
 		type: type
 	})
 }
+	
 // Anything passed in the _navigate function is available here
 renderScene(route, navigator) {
   if(route.name == 'Home'){
@@ -32,7 +31,6 @@ renderScene(route, navigator) {
 }
 
   render() {
-
     return( 
       <Navigator
         configureScene={ this.configureScene }
@@ -57,5 +55,5 @@ const styles = StyleSheet.create({
     //zIndex: -1,
   }
 }) 
-AppRegistry.registerComponent('App', () => App);
 
+AppRegistry.registerComponent('App', () => App);
