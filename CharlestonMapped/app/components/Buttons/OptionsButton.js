@@ -1,3 +1,4 @@
+// @flow 
 import { StyleSheet, View } from 'react-native'
 import React, { Component, } from 'react'
 
@@ -8,7 +9,7 @@ export default class FindMeButton extends Component {
   render() {
 
     return (null
-     
+
     )
   }
 }

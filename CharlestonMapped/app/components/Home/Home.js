@@ -1,4 +1,5 @@
-import { 
+// @flow 
+import {
   TouchableHighlight,
   AppRegistry,
   StyleSheet,
@@ -43,8 +44,8 @@ export default class Home extends Component {
       bottom: 15,
       left: 15,
       right: 15,
-    } 
-    return( 
+    }
+    return(
       <View style={styles.container}>
          <Text style={styles.location}>Choose your location:</Text>
          <Select
@@ -56,12 +57,12 @@ export default class Home extends Component {
             defaultValue="Charleston, IL"
             onSelect={this._location.bind(this)}>
             <Option value = {{id : "charleston"}}>Charleston, IL</Option>
-         </Select>    
+         </Select>
 
-         <TouchableHighlight 
+         <TouchableHighlight
          hitSlop = {hitSlop}
-         activeOpacity={0.4} 
-         style={styles.enterButton} 
+         activeOpacity={0.4}
+         style={styles.enterButton}
          onPress={ () => this._navigate() } >
            <Text style={styles.centerText}>Enter</Text>
          </TouchableHighlight>
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 10,
     color: 'black',
-  },  
+  },
   selectBar: {
     marginBottom: 5,
     textAlign: 'center',
@@ -111,6 +112,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   }
-}) 
+})
 
 AppRegistry.registerComponent('Home', () => Home);

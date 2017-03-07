@@ -1,5 +1,6 @@
-import { 
-  Navigator,	
+// @flow 
+import {
+  Navigator,
   AppRegistry,
   StyleSheet,
   Text,
@@ -19,11 +20,11 @@ _navigate(property){
 		type: type
 	})
 }
-	
+
 // Anything passed in the _navigate function is available here
 renderScene(route, navigator) {
   if(route.name == 'Home'){
-    return <Home navigator={navigator} {...route.passprops} />  
+    return <Home navigator={navigator} {...route.passprops} />
   }
   if(route.name == 'TheMap'){
     return <TheMap navigator={navigator} {...route.passProps} />
@@ -31,11 +32,11 @@ renderScene(route, navigator) {
 }
 
   render() {
-    return( 
+    return(
       <Navigator
         configureScene={ this.configureScene }
         initialRoute={{ name: 'Home' }}
-        renderScene={ this.renderScene }  
+        renderScene={ this.renderScene }
       />
     );
   }
@@ -54,6 +55,6 @@ const styles = StyleSheet.create({
     // For Buttons
     //zIndex: -1,
   }
-}) 
+})
 
 AppRegistry.registerComponent('App', () => App);

@@ -1,7 +1,8 @@
-import { 
+// @flow 
+import {
   TouchableOpacity,
   AppRegistry,
-  StyleSheet, 
+  StyleSheet,
   View
   } from 'react-native'
 import React, { Component, } from 'react'
@@ -18,7 +19,7 @@ export default class FindMeButton extends Component {
       <TouchableOpacity  activeOpacity={0.6} style={styles.mapButton} onPress={ () => this._findMe() }>
         <Text style={{fontWeight: 'bold'}}>Find Me</Text>
       </TouchableOpacity >
-     
+
     )
   }
 }

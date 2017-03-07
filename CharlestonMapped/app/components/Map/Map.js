@@ -1,4 +1,5 @@
-import { 
+// @flow 
+import {
   TouchableOpacity,
   TouchableHighlight,
   Dimensions,
@@ -61,9 +62,9 @@ export default class TheMap extends Component {
     let position = this.state.newLocation ? this.state.position : this.props.position;
    //const {region, position} = this.state
     const { height: windowHeight } = Dimensions.get('window');
-    // Dynamic sizing 
+    // Dynamic sizing
     const varTop = windowHeight - 125;
-    // hitSlop property defines touch/ button proximity 
+    // hitSlop property defines touch/ button proximity
     const hitSlop = {
       top: 15,
       bottom: 15,
@@ -85,10 +86,10 @@ export default class TheMap extends Component {
       <View style={styles.container}>
         // Back button
         <View style={styles.backButtontray}>
-          <TouchableHighlight 
+          <TouchableHighlight
             hitSlop = {hitSlop}
-            activeOpacity={0.7} 
-            style={styles.backButton} 
+            activeOpacity={0.7}
+            style={styles.backButton}
             onPress={ () => this._navigate() }
           >
               <Image style={styles.image} source={require('../../Assets/back.png')} />
@@ -96,10 +97,10 @@ export default class TheMap extends Component {
         </View>
         // Find Me button
         <View style={bbStyle(varTop)}>
-          <TouchableOpacity  
+          <TouchableOpacity
             hitSlop = {hitSlop}
-            activeOpacity={0.7} 
-            style={styles.mapButton} 
+            activeOpacity={0.7}
+            style={styles.mapButton}
             onPress={ () => this._findMe() }
           >
               <Text style={{fontWeight: 'bold', color: 'black',}}>
@@ -113,7 +114,7 @@ export default class TheMap extends Component {
           style={styles.map}
           region={region}
         >
-          // Outer circle - current location  
+          // Outer circle - current location
           {position && (
             <MapView.Circle
               center={position}
@@ -188,6 +189,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
   },
-}) 
+})
 
 AppRegistry.registerComponent('TheMap', () => TheMap);

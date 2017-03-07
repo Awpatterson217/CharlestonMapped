@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "clean": "babelrc"
+    "clean": "babelrc",
+	  "flow": "flow; test $? -eq 0 -o $? -eq 2"
   },
   "dependencies": {
     "react": "15.4.2",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "babel-jest": "18.0.0",
     "babel-preset-react-native": "1.9.1",
+    "flow-bin": "^0.36.0",
     "jest": "18.1.0",
     "react-test-renderer": "15.4.2"
   },

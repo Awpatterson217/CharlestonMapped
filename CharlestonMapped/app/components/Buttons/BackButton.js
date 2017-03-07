@@ -1,12 +1,13 @@
+// @flow 
 /*
 *
 * Cannot currently pass navigator object to class
 *
 */
-import { 
+import {
   TouchableOpacity,
   AppRegistry,
-  StyleSheet, 
+  StyleSheet,
   Text,
   View
 	     } from 'react-native';
@@ -27,7 +28,7 @@ export default class BackButton extends Component {
     <TouchableOpacity activeOpacity={0.6} style={styles.mapButton} onPress={ () => this._navigate() }>
       <Text style={{fontWeight: 'bold'}}>back</Text>
     </TouchableOpacity >
-     
+
     )
   }
 }
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowOffset: {width: 0, height: 5},
- 
+
     shadowOpacity: 0.12,
     opacity: 1,
     zIndex: 10,
