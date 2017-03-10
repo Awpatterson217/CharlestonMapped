@@ -4,15 +4,10 @@ An interactive mobile app created with the React Native framework
 <hr>
 <img src="https://github.com/Awpatterson217/Charleston-IL-Historic-Sites/blob/master/CharlestonMapped/screenshots/Screenshot_20170113-041911.png" width="300">
 <hr>
-<img src="https://github.com/Awpatterson217/Charleston-IL-Historic-Sites/blob/master/CharlestonMapped/screenshots/Screenshot_20170113-041917.png" width="300">
+<img src="https://github.com/Awpatterson217/Charleston-IL-Historic-Sites/blob/master/CharlestonMapped/screenshots/Screenshot_1489133920.png" width="300">
 <hr>
 <h5>Libraries used:</h5>
-<pre><b>react-native-router-flux:</b>        https://github.com/aksonov/react-native-router-flux </pre>
 
 <pre><b>react-native-maps</b>                https://github.com/airbnb/react-native-maps </pre>
 
-<pre><b>react-native-select:</b>             https://github.com/gs-akhan/react-native-select </pre>
 
-<pre><b>react-redux</b>                      https://github.com/reactjs/react-redux </pre>
-
-<pre><b>redux-persist:</b>                   https://github.com/rt2zz/redux-persist</pre>

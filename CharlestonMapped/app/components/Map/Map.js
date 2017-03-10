@@ -15,7 +15,6 @@ import {
 export default class TheMap extends Component {
   constructor(props){
     super(props);
-    console.log(this.props);
       this.state = {
         region:{
           latitude: 39.4961,
