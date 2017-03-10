@@ -1,4 +1,4 @@
-// @flow 
+// @flow
 import {
   TouchableOpacity,
   TouchableHighlight,
@@ -15,24 +15,26 @@ import {
 export default class TheMap extends Component {
   constructor(props){
     super(props);
-      // Initial region doesn't seem to be available
-      // Have tried passing with {this.props.region}
-      this.region = {
-        latitude: 39.4961,
-        longitude: 88.1762,
-        latitudeDelta: 0.04,
-        longitudeDelta: 0.02,
-      }
-      this.position = {
-        latitude: 39.4961,
-        longitude: 88.1762,
-      }
+    console.log(this.props);
       this.state = {
+        region:{
+          latitude: 39.4961,
+          longitude: -88.1762,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.001
+        },
         newLocation: false,
+        innerRadius: 10,
+        outerRadius: 70
       }
   }
+  _navigate(property){
+  this.props.navigator.pop()
+  }
   _findMe(){
-    this.state.newLocation = true
+    this.state.newLocation = true;
+    this.state.innerRadius = 2
+    this.state.outerRadius = 20
     navigator.geolocation.getCurrentPosition(
       ({coords}) => {
         const {latitude, longitude} = coords
@@ -44,20 +46,76 @@ export default class TheMap extends Component {
           region: {
             latitude,
             longitude,
-            latitudeDelta: 0.01,
+            latitudeDelta: 0.001,
             longitudeDelta: 0.001,
           }
         })
       },
-      (error) => alert(JSON.stringify(error)),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      (error) => alert('Location services are off.'),
+      //(error) => alert(JSON.stringify(error)),
+      {enableHighAccuracy: true}
     )
   }
-  _navigate(property){
-  this.props.navigator.pop()
+  onPressMarker (markerData) {
+    this.setState({ openedMarker: markerData });
+    this.refs.map.animateToRegion({
+        latitude: parseFloat(markerData.latitude),
+        longitude: parseFloat(markerData.longitude),
+        latitudeDelta: 0.0009,
+        longitudeDelta: 0.001
+    });
   }
+  updateMarkers(payload) {
+        var markers = []
+        let id = 0
+        _.forOwn(payload, function(value, key) {
+            markers.push({
+                coordinate: value.coordinates,
+                key: id++
+            });
+        })
+        this.setState({markers: newArrayOfCoordinates})
+    }
+  componentDidMount() {
+      console.log('componentDidMount.');
+      navigator.geolocation.getCurrentPosition(
+        ({coords}) => {
+          const {latitude, longitude} = coords
+          this.setState({
+            position: {
+              latitude,
+              longitude,
+            },
+            region: {
+              latitude,
+              longitude,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.001,
+            }
+          })
+        },
+        (error) => alert('Location services are off.')
+      );
+      this.watchID = navigator.geolocation.watchPosition(
+        ({coords}) => {
+          const {latitude, longitude} = coords
+          this.setState({
+            position: {
+              latitude,
+              longitude,
+            },
+            region: {
+              latitude,
+              longitude,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.001,
+            }
+          })
+      });
+    }
 
   render() {
+    var markers = this.state.markers || [];
     let region = this.state.newLocation ? this.state.region : this.props.region;
     let position = this.state.newLocation ? this.state.position : this.props.position;
    //const {region, position} = this.state
@@ -84,7 +142,6 @@ export default class TheMap extends Component {
     return(
       // Holds entire scene
       <View style={styles.container}>
-        // Back button
         <View style={styles.backButtontray}>
           <TouchableHighlight
             hitSlop = {hitSlop}
@@ -95,7 +152,6 @@ export default class TheMap extends Component {
               <Image style={styles.image} source={require('../../Assets/back.png')} />
           </TouchableHighlight>
         </View>
-        // Find Me button
         <View style={bbStyle(varTop)}>
           <TouchableOpacity
             hitSlop = {hitSlop}
@@ -108,35 +164,49 @@ export default class TheMap extends Component {
               </Text>
           </TouchableOpacity>
         </View>
-        // MapView requires key to Google Maps API
-        // located in ../android/app/src/main/AndroidManifest.xml
         <MapView
           style={styles.map}
-          region={region}
+          region={this.state.region}
         >
-          // Outer circle - current location
-          {position && (
+          {this.state.position && (
             <MapView.Circle
-              center={position}
-              radius={75}
+              center={this.state.position}
+              radius={this.state.outerRadius}
+              showsUserLocation={true}
               strokeColor={'transparent'}
               fillColor={'rgba(112,185,213,0.30)'}
             />
           )}
-          // Inner circle - current location
-          {position && (
+          {this.state.position && (
             <MapView.Circle
-              center={position}
-              radius={10}
+              center={this.state.position}
+              radius={this.state.innerRadius}
               strokeColor={'transparent'}
               fillColor={'rgba(11,48,60,0.84)'}
             />
           )}
+          {markers.map(marker => (
+            <MapView.Marker
+              key={marker.uniqueId}
+              coordinate={{
+                latitude: marker.latitude,
+                longitude: marker.longitude
+              }}
+              title="This is a title"
+              description="This is a description"
+            >
+            <MapView.Callout>
+              <View>
+                <Text>This is a plain view</Text>
+              </View>
+            </MapView.Callout>
+            </MapView.Marker>
+          ))}
         </MapView>
       </View>
-    ); // End return
-  } // End render
-} // End TheMap
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {

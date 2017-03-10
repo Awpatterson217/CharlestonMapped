@@ -1,4 +1,4 @@
-// @flow 
+// @flow
 import {
   Navigator,
   AppRegistry,
@@ -20,7 +20,6 @@ _navigate(property){
 		type: type
 	})
 }
-
 // Anything passed in the _navigate function is available here
 renderScene(route, navigator) {
   if(route.name == 'Home'){
@@ -52,8 +51,6 @@ const styles = StyleSheet.create({
   },
     map: {
     flex: 1,
-    // For Buttons
-    //zIndex: -1,
   }
 })
 

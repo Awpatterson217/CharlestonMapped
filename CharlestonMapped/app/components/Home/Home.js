@@ -1,4 +1,4 @@
-// @flow 
+// @flow
 import {
   TouchableHighlight,
   AppRegistry,
@@ -17,18 +17,9 @@ export default class Home extends Component {
   constructor(props){
     super(props);
     this.state = {
-      location: ''
     }
   }
-  _getOptionList() {
-    return this.refs['OPTIONLIST'];
-  }
-  _location(place) {
-    this.setState({
-      ...this.state,
-      location: place
-    });
-  }
+
   _navigate(property){
     this.props.navigator.push({
       name: 'TheMap',
@@ -47,18 +38,7 @@ export default class Home extends Component {
     }
     return(
       <View style={styles.container}>
-         <Text style={styles.location}>Choose your location:</Text>
-         <Select
-           style = {{backgroundColor: 'white'}}
-            width={200}
-            height={20}
-            ref="SELECT1"
-            optionListRef={this._getOptionList.bind(this)}
-            defaultValue="Charleston, IL"
-            onSelect={this._location.bind(this)}>
-            <Option value = {{id : "charleston"}}>Charleston, IL</Option>
-         </Select>
-
+        <Text style={styles.title}>Explore Charleston, IL</Text>
          <TouchableHighlight
          hitSlop = {hitSlop}
          activeOpacity={0.4}
@@ -66,7 +46,6 @@ export default class Home extends Component {
          onPress={ () => this._navigate() } >
            <Text style={styles.centerText}>Enter</Text>
          </TouchableHighlight>
-         <OptionList ref="OPTIONLIST"/>
       </View>
     );
   }
@@ -79,17 +58,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  location: {
+  title: {
     fontWeight: 'bold',
-    marginBottom: 5,
-    textAlign: 'center',
-    padding: 10,
     color: 'black',
-  },
-  selectBar: {
-    marginBottom: 5,
+    marginBottom: 20,
     textAlign: 'center',
     padding: 10,
+    fontSize: 20,
   },
   enterButton: {
     width: 110,
