@@ -1,6 +1,7 @@
 import ApiUtils from './ApiUtils'
 // Currently in testing
 let url = "localhost:3000"
+let path = "/"
 var Api = {
   getMarkers: function() {
     return fetch(url)

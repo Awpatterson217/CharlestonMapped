@@ -24,7 +24,8 @@ export default class TheMap extends Component {
         },
         newLocation: false,
         innerRadius: 10,
-        outerRadius: 70
+        outerRadius: 70,
+        historicSites: this.props.historicSites
       }
   }
   _navigate(property){
@@ -77,6 +78,7 @@ export default class TheMap extends Component {
     }
   componentDidMount() {
       console.log('componentDidMount.');
+      updateMarkers({JSON.stringify(this.state.historicSites)});
       navigator.geolocation.getCurrentPosition(
         ({coords}) => {
           const {latitude, longitude} = coords
@@ -139,7 +141,6 @@ export default class TheMap extends Component {
       }
     }
     return(
-      // Holds entire scene
       <View style={styles.container}>
         <View style={styles.backButtontray}>
           <TouchableHighlight
@@ -191,8 +192,8 @@ export default class TheMap extends Component {
                 latitude: marker.latitude,
                 longitude: marker.longitude
               }}
-              title="This is a title"
-              description="This is a description"
+              title={marker.title}
+              description={marker.desc}
             >
             <MapView.Callout>
               <View>

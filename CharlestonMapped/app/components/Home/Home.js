@@ -7,11 +7,6 @@ import {
   View
  } from 'react-native';
  import React, { Component, PropTypes, } from 'react';
-import DropDown, {
-  Select,
-  Option,
-  OptionList,
-} from 'react-native-selectme';
 
 export default class Home extends Component {
   constructor(props){
@@ -19,7 +14,6 @@ export default class Home extends Component {
     this.state = {
     }
   }
-
   _navigate(property){
     this.props.navigator.push({
       name: 'TheMap',
