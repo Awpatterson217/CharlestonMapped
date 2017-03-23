@@ -9,7 +9,7 @@ import {
  import React, { Component } from 'react';
 import Home from './components/Home/Home';
 import TheMap from './components/Map/Map';
-import API from './components/API/API';
+import { makeInitialRequest, getAllKeys, clearAllKeys, getTestObj, getMultiObj } from './API/Api';
 
 export default class App extends Component {
 _navigate(property){
@@ -26,7 +26,7 @@ renderScene(route, navigator) {
     return <Home navigator={navigator} {...route.passprops} />
   }
   if(route.name == 'TheMap'){
-    return <TheMap navigator={navigator} {...route.passProps} historicSites={API.response} />
+    return <TheMap navigator={navigator} {...route.passProps} />
   }
 }
 
