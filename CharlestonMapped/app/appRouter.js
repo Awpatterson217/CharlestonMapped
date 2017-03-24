@@ -33,7 +33,7 @@ renderScene(route, navigator) {
   render() {
     return(
       <Navigator
-        configureScene={ this.configureScene }
+        configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromRight}
         initialRoute={{ name: 'Home' }}
         renderScene={ this.renderScene }
       />

@@ -23,18 +23,16 @@ export default class TheMap extends Component {
           longitudeDelta: 0.001
         },
         newLocation: false,
-        innerRadius: 10,
-        outerRadius: 70,
-        historicSites: this.props.historicSites
+        innerRadius: 5,
+        outerRadius: 50,
       }
   }
   _navigate(property){
   this.props.navigator.pop()
   }
   _findMe(){
-    this.state.newLocation = true;
-    this.state.innerRadius = 2
-    this.state.outerRadius = 20
+    //this.state.innerRadius = 2
+    //this.state.outerRadius = 20
     navigator.geolocation.getCurrentPosition(
       ({coords}) => {
         const {latitude, longitude} = coords
@@ -46,14 +44,14 @@ export default class TheMap extends Component {
           region: {
             latitude,
             longitude,
-            latitudeDelta: 0.001,
+            latitudeDelta: 0.005,
             longitudeDelta: 0.001,
           }
         })
       },
-      (error) => alert('Location services are off.'),
+      (error) => alert('Error: Are location services on?'),
       //(error) => alert(JSON.stringify(error)),
-      {enableHighAccuracy: true}
+      //{enableHighAccuracy: true}
     )
   }
   onPressMarker (markerData) {
@@ -61,7 +59,7 @@ export default class TheMap extends Component {
     this.refs.map.animateToRegion({
         latitude: parseFloat(markerData.latitude),
         longitude: parseFloat(markerData.longitude),
-        latitudeDelta: 0.0009,
+        latitudeDelta: 0.005,
         longitudeDelta: 0.001
     });
   }
@@ -78,7 +76,7 @@ export default class TheMap extends Component {
     }
   componentDidMount() {
       console.log('componentDidMount.');
-      updateMarkers({JSON.stringify(this.state.historicSites)});
+      //updateMarkers({JSON.stringify(this.state.historicSites)});
       navigator.geolocation.getCurrentPosition(
         ({coords}) => {
           const {latitude, longitude} = coords
@@ -90,12 +88,13 @@ export default class TheMap extends Component {
             region: {
               latitude,
               longitude,
-              latitudeDelta: 0.015,
+              latitudeDelta: 0.005,
               longitudeDelta: 0.001,
             }
           })
         },
-        (error) => alert('Location services are off.')
+        (error) => alert('Error: Are location services on?'),
+        //{enableHighAccuracy: true}
       );
       this.watchID = navigator.geolocation.watchPosition(
         ({coords}) => {
@@ -108,7 +107,7 @@ export default class TheMap extends Component {
             region: {
               latitude,
               longitude,
-              latitudeDelta: 0.015,
+              latitudeDelta: 0.005,
               longitudeDelta: 0.001,
             }
           })
@@ -117,13 +116,11 @@ export default class TheMap extends Component {
 
   render() {
     var markers = this.state.markers || [];
-    let region = this.state.newLocation ? this.state.region : this.props.region;
-    let position = this.state.newLocation ? this.state.position : this.props.position;
+    //let region = this.state.newLocation ? this.state.region : this.props.region;
+    //let position = this.state.newLocation ? this.state.position : this.props.position;
    //const {region, position} = this.state
     const { height: windowHeight } = Dimensions.get('window');
-    // Dynamic sizing
     const varTop = windowHeight - 125;
-    // hitSlop property defines touch/ button proximity
     const hitSlop = {
       top: 15,
       bottom: 15,

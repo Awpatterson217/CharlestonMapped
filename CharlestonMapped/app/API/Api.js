@@ -43,9 +43,51 @@ var makeInitialRequest = function(response){
         console.error(error);
     });
 }
-var getAllKeys = function(){
-  AsyncStorage.getAllKeys().then((key) => {
-    console.log(key);
+var getAllMyKeys = new Promise(function(resolve, reject){
+  AsyncStorage.getAllKeys().then((keys) => {
+    //console.log(keys);
+    resolve(keys);
+  });
+});
+var getMarkerCoords = function(){
+  console.log('new press');
+  //makeInitialRequest().then()
+    getAllMyKeys.then((keys) => {
+      var allCoords = [];
+      var keysLength = keys.length;
+      let count = 0;
+      for(count; count < keysLength; count++){
+        let thisKey = keys[count];
+        AsyncStorage.getItem(thisKey).then((data) => {
+          let thisLat = data.lat;
+          let thisLong = data.long;
+          console.log(thisLong);
+
+          let thisCoordsObj = {
+            key: thisKey,
+            lat: thisLat,
+            long: thisLong,
+          }
+          allCoords.push(thisCoordsObj)
+          //console.log(thisCoordsObj);
+          //console.log(keysLength);
+          //console.log(allCoords.length);
+
+          if(allCoords.length == keysLength){
+            console.log(allCoords);
+          }
+        });
+      }
+    //console.log(keys);
+  });
+}
+
+var getTestObj = function(){
+  AsyncStorage.getItem('10').then((data) => {
+    //var lat = data[long];
+    //console.log(lat);
+    console.log(data);
+
   });
 }
 var clearAllKeys = function(){
@@ -57,11 +99,6 @@ var clearAllKeys = function(){
     }
   });
 }
-var getTestObj = function(){
-  AsyncStorage.getItem('10').then((data) => {
-    console.log(data);
-  });
-}
 var getMultiObj = function(){
 AsyncStorage.multiGet(['10','11'], (err, stores) => {
   stores.map( (result, i, store) => {
@@ -71,4 +108,4 @@ AsyncStorage.multiGet(['10','11'], (err, stores) => {
   });
 });
 }
-export { makeInitialRequest, getAllKeys, clearAllKeys, getTestObj, getMultiObj };
+export { makeInitialRequest, getAllMyKeys, clearAllKeys, getTestObj, getMultiObj, getMarkerCoords };
