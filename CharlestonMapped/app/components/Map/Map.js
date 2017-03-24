@@ -23,8 +23,8 @@ export default class TheMap extends Component {
           longitudeDelta: 0.001
         },
         newLocation: false,
-        innerRadius: 5,
-        outerRadius: 50,
+        //innerRadius: 5,
+        //outerRadius: 50,
       }
   }
   _navigate(property){
@@ -51,7 +51,7 @@ export default class TheMap extends Component {
       },
       (error) => alert('Error: Are location services on?'),
       //(error) => alert(JSON.stringify(error)),
-      //{enableHighAccuracy: true}
+      {enableHighAccuracy: true}
     )
   }
   onPressMarker (markerData) {
@@ -94,7 +94,7 @@ export default class TheMap extends Component {
           })
         },
         (error) => alert('Error: Are location services on?'),
-        //{enableHighAccuracy: true}
+        {enableHighAccuracy: true}
       );
       this.watchID = navigator.geolocation.watchPosition(
         ({coords}) => {
@@ -164,37 +164,23 @@ export default class TheMap extends Component {
         <MapView
           style={styles.map}
           region={this.state.region}
+          showsUserLocation={true}
+          followsUserLocation={true}
         >
-          {this.state.position && (
-            <MapView.Circle
-              center={this.state.position}
-              radius={this.state.outerRadius}
-              showsUserLocation={true}
-              strokeColor={'transparent'}
-              fillColor={'rgba(112,185,213,0.30)'}
-            />
-          )}
-          {this.state.position && (
-            <MapView.Circle
-              center={this.state.position}
-              radius={this.state.innerRadius}
-              strokeColor={'transparent'}
-              fillColor={'rgba(11,48,60,0.84)'}
-            />
-          )}
           {markers.map(marker => (
             <MapView.Marker
-              key={marker.uniqueId}
+              key={marker.key}
               coordinate={{
-                latitude: marker.latitude,
-                longitude: marker.longitude
+                latitude: marker.lat,
+                longitude: marker.long
               }}
               title={marker.title}
-              description={marker.desc}
+              desc={marker.desc}
             >
             <MapView.Callout>
               <View>
-                <Text>This is a plain view</Text>
+                <Text>{this.title}</Text>
+                <Text>{this.desc}</Text>
               </View>
             </MapView.Callout>
             </MapView.Marker>
