@@ -1,15 +1,20 @@
 // @flow
 import {
-  Navigator,
   AppRegistry,
-  StyleSheet,
-  Text,
-  View
+  Navigator
  } from 'react-native';
  import React, { Component } from 'react';
+
 import Home from './components/Home/Home';
 import TheMap from './components/Map/Map';
-import { makeInitialRequest, getAllKeys, clearAllKeys, getTestObj, getMultiObj } from './API/Api';
+import {
+  makeInitialRequest,
+  getMarkerCoords,
+  getAllMyKeys,
+  clearAllKeys,
+  getMultiObj,
+  getTestObj
+} from './API/Api';
 
 export default class App extends Component {
 _navigate(property){
@@ -40,18 +45,4 @@ renderScene(route, navigator) {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#EEEEEE'
-  },
-  buttonContainer: {
-    flex: 1,
-  },
-    map: {
-    flex: 1,
-  }
-})
-
 AppRegistry.registerComponent('App', () => App);

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { AsyncStorage } from 'react-native';
 
 var makeInitialRequest = function(response){
@@ -29,15 +29,10 @@ var makeInitialRequest = function(response){
             style: response[key].style_primary
           }
           AsyncStorage.setItem(key, JSON.stringify(thisSite));
-
           console.log(key);
           console.log(thisSite);
         }
       }
-      //console.log('First latitude: ' + JSON.stringify(response[0].latitude));
-      //console.log('First longitude: ' + JSON.stringify(response[0].longitude));
-      //console.log(response);
-      //return response;
     })
     .catch(function(error) {
         console.error(error);
@@ -45,13 +40,11 @@ var makeInitialRequest = function(response){
 }
 var getAllMyKeys = new Promise(function(resolve, reject){
   AsyncStorage.getAllKeys().then((keys) => {
-    //console.log(keys);
     resolve(keys);
   });
 });
 var getMarkerCoords = function(){
   console.log('new press');
-  //makeInitialRequest().then()
     getAllMyKeys.then((keys) => {
       var allCoords = [];
       var keysLength = keys.length;
@@ -62,32 +55,24 @@ var getMarkerCoords = function(){
           let thisLat = data.lat;
           let thisLong = data.long;
           console.log(thisLong);
-
           let thisCoordsObj = {
             key: thisKey,
             lat: thisLat,
             long: thisLong,
           }
           allCoords.push(thisCoordsObj)
-          //console.log(thisCoordsObj);
-          //console.log(keysLength);
-          //console.log(allCoords.length);
-
           if(allCoords.length == keysLength){
             console.log(allCoords);
           }
         });
       }
-    //console.log(keys);
   });
 }
-
 var getTestObj = function(){
   AsyncStorage.getItem('10').then((data) => {
     //var lat = data[long];
     //console.log(lat);
     console.log(data);
-
   });
 }
 var clearAllKeys = function(){
@@ -108,4 +93,11 @@ AsyncStorage.multiGet(['10','11'], (err, stores) => {
   });
 });
 }
-export { makeInitialRequest, getAllMyKeys, clearAllKeys, getTestObj, getMultiObj, getMarkerCoords };
+export {
+  makeInitialRequest,
+  getMarkerCoords,
+  getAllMyKeys,
+  clearAllKeys,
+  getTestObj,
+  getMultiObj
+};

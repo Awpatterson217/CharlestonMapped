@@ -7,6 +7,8 @@ import {
   Image,
   View
 } from 'react-native';
+import React, { Component, PropTypes, } from 'react';
+
 import {
   makeInitialRequest,
   getMarkerCoords,
@@ -15,7 +17,6 @@ import {
   getTestObj,
   getMultiObj
 } from '../../API/Api';
-import React, { Component, PropTypes, } from 'react';
 
 export default class Home extends Component {
   constructor(props){
