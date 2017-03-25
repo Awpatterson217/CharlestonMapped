@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
 import { AsyncStorage } from 'react-native';
 
+// To prevent memory leaks
+const makeCancelable = (promise) => {
+  let hasCanceled_ = false;
+  const wrappedPromise = new Promise((resolve, reject) => {
+    promise.then((val) =>
+      hasCanceled_ ? reject({isCanceled: true}) : resolve(val)
+    );
+    promise.catch((error) =>
+      hasCanceled_ ? reject({isCanceled: true}) : reject(error)
+    );
+  });
+  return {
+    promise: wrappedPromise,
+    cancel() {
+      hasCanceled_ = true;
+    },
+  };
+};
 var makeInitialRequest = function(response){
   const initialURL = 'EXCLUDED';
   var myRequest = new Request(initialURL, {method: 'GET', headers:{'X-Requested-With':'XMLHttpRequest'}});
@@ -29,8 +47,8 @@ var makeInitialRequest = function(response){
             style: response[key].style_primary
           }
           AsyncStorage.setItem(key, JSON.stringify(thisSite));
-          console.log(key);
-          console.log(thisSite);
+          //console.log(key);
+          //console.log(thisSite);
         }
       }
     })
@@ -41,6 +59,30 @@ var makeInitialRequest = function(response){
 var getAllMyKeys = new Promise(function(resolve, reject){
   AsyncStorage.getAllKeys().then((keys) => {
     resolve(keys);
+  });
+});
+
+var checkForKeys = new Promise(function(resolve, reject){
+  getAllMyKeys.then((keys) => {
+    console.log('keys.length: ' + keys.length);
+    if(keys.length != 0){
+      console.log(keys);
+      //resolve(keys);
+    }else{
+      makeInitialRequest();
+      console.log('madeInitialRequest');
+      getAllMyKeys.then((keys) => {
+        console.log('keys.length: ' + keys.length);
+      if(keys.length != 0){
+        console.log(keys);
+        //resolve(keys);
+      }else{
+        console.log('Error: Unable to load sites. Is internet access enabled?')
+        console.log('empty');
+      }
+      });
+      //console.log('empty');
+    }
   });
 });
 var getMarkerCoords = function(){
@@ -98,6 +140,7 @@ export {
   getMarkerCoords,
   getAllMyKeys,
   clearAllKeys,
+  checkForKeys,
   getTestObj,
   getMultiObj
 };

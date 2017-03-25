@@ -12,6 +12,7 @@ import {
   getMarkerCoords,
   getAllMyKeys,
   clearAllKeys,
+  checkForKeys,
   getMultiObj,
   getTestObj
 } from './API/Api';

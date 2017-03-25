@@ -14,6 +14,7 @@ import {
   getMarkerCoords,
   getAllMyKeys,
   clearAllKeys,
+  checkForKeys,
   getTestObj,
   getMultiObj
 } from '../../API/Api';
@@ -30,7 +31,6 @@ export default class Home extends Component {
       }
     })
   }
-
   render() {
     const hitSlop = {
       top: 5,
@@ -46,22 +46,21 @@ export default class Home extends Component {
     }
     return(
       <Image source={require('../../Assets/lincoln.jpg')} style={styles.backgroundImage}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>Explore Charleston, IL</Text>
+        <View style={styles.enterButtonContainer}>
+          <TouchableHighlight
+            hitSlop = {enterHitSlop}
+            activeOpacity={0.4}
+            style={styles.enterButton}
+            onPress={ () => this._navigate() } >
+              <Text style={styles.enterButtonText}>Explore</Text>
+          </TouchableHighlight>
         </View>
         <View style={styles.buttonContainer}>
-           <TouchableHighlight
-             hitSlop = {enterHitSlop}
-             activeOpacity={0.4}
-             style={styles.enterButton}
-             onPress={ () => this._navigate() } >
-               <Text style={styles.enterButtonText}>Enter</Text>
-           </TouchableHighlight>
            <TouchableHighlight
              hitSlop = {hitSlop}
              activeOpacity={0.4}
              style={styles.button}
-             onPress={ () =>  getTestObj()} >
+             onPress={ () =>  clearAllKeys()} >
                <Text style={styles.buttonText}>Settings</Text>
            </TouchableHighlight>
            <TouchableHighlight
@@ -86,53 +85,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  titleContainer: {
+  enterButtonContainer: {
     flex: 2,
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 80,
+    justifyContent: 'flex-start',
     backgroundColor: 'transparent',
   },
-  title: {
-    //width: 300,
-    //height: 35,
-    padding: 15,
-    fontSize: 30,
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    borderRadius: 100 / 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0, 5, 5, 0.7)',
-  },
   buttonContainer: {
-    flex: 10,
+    flex: 1,
     marginBottom: 20,
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: 'transparent',
   },
   enterButton: {
-    width: 110,
-    height: 35,
-    opacity: 1,
-    elevation: 20,
-    marginBottom: 45,
-    //alignSelf: 'flex-start',
-    alignItems: 'center',
-    borderRadius: 100 / 10,
-    backgroundColor: 'white',
-    justifyContent: 'space-around',
-    shadowRadius: 10,
-    shadowOpacity: .5,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height: 5},
+    width: 300,
+    height: 165,
+    //padding: 40,
+    //elevation: 15,
+    borderWidth: 5,
+    marginBottom: 60,
+    borderStyle: 'solid',
+    borderColor: 'rgba(0, 0, 0, 0.7)',
+    borderRadius: 100 / 20,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   button: {
-    width: 75,
-    height: 22,
+    width: 125,
+    height: 27,
     opacity: 1,
-    elevation: 10,
-    marginBottom: 7,
+    elevation: 5,
+    borderWidth: 1,
+    marginBottom: 10,
     alignItems: 'center',
     borderRadius: 100 / 30,
     backgroundColor: 'white',
@@ -144,8 +130,9 @@ const styles = StyleSheet.create({
     //padding: 60,
   },
   enterButtonText: {
-    fontSize: 27,
-    color: 'black',
+    padding: 15,
+    fontSize: 30,
+    color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },

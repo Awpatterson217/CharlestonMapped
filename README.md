@@ -2,9 +2,20 @@
 An interactive mobile app created with the React Native framework
 <br />
 <hr>
+Home Screen:
 <img src="https://github.com/Awpatterson217/Charleston-IL-Historic-Sites/blob/master/CharlestonMapped/screenshots/home.jpg" width="300">
 <hr>
+Home Screen Rotated:
+<img src="https://github.com/Awpatterson217/Charleston-IL-Historic-Sites/blob/master/CharlestonMapped/screenshots/home_sideways.jpg" width="300">
+<hr>
+Map: 
 <img src="https://github.com/Awpatterson217/Charleston-IL-Historic-Sites/blob/master/CharlestonMapped/screenshots/map.jpg" width="300">
+<hr>
+<h5>Credits:</h5> 
+<pre><b>Uses data found on RuskinARC:</b>                                          https://www.ruskinarc.com/charleston-historic-preservati/charleston-historic-preservati/</pre> 
+<pre><b>In collaboration with the Charleston Historic Preservation Commission:</b> http://www.charlestonillinoishpc.org/</pre> 
+<pre><b>Background Image Location:</b>                                             https://commons.wikimedia.org/wiki/File:Lincoln_Log_Cabin_2.jpg</pre> 
+<pre><b>Background Image Author:</b>                                               Daniel Schwen, https://commons.wikimedia.org/wiki/User:Dschwen</pre>
 <hr>
 <h5>Libraries used:</h5>
 
