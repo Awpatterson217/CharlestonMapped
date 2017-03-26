@@ -1,5 +1,5 @@
-# Charleston-IL-Historic-Sites
-An interactive mobile app created with the React Native framework
+# CharlestonMapped
+An interactive mobile app created with the React Native framework. This app shows users their location in relation to the many historic sites of Charleston, Illinois in real-time. Display detailed information on the fly, such as: estimated construction date, historical significance, style, pictures and more.
 <br />
 <hr>
 Home screen:
