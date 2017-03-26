@@ -15,7 +15,7 @@ Map:
 <pre><b>Uses data found on RuskinARC:</b>  
 https://www.ruskinarc.com/charleston-historic-preservati/charleston-historic-preservati/</pre> 
 
-<pre><b>Uses data collected the Charleston Historic Preservation Commission:</b> 
+<pre><b>Uses data collected by the Charleston Historic Preservation Commission:</b> 
 http://www.charlestonillinoishpc.org/</pre> 
 
 <pre><b>Background image location:</b>         
