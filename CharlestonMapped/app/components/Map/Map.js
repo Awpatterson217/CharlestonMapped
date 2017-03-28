@@ -1,9 +1,9 @@
 // @flow
 import {
+  AppRegistry,
   TouchableOpacity,
   TouchableHighlight,
   Dimensions,
-  AppRegistry,
   StyleSheet,
   Image,
   Text,
@@ -16,23 +16,13 @@ export default class TheMap extends Component {
   constructor(props){
     super(props);
       this.state = {
-        region:{
-          latitude: 39.4961,
-          longitude: -88.1762,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.001
-        },
-        newLocation: false,
-        //innerRadius: 5,
-        //outerRadius: 50,
+
       }
   }
   _navigate(property){
   this.props.navigator.pop()
   }
   _findMe(){
-    //this.state.innerRadius = 2
-    //this.state.outerRadius = 20
     navigator.geolocation.getCurrentPosition(
       ({coords}) => {
         const {latitude, longitude} = coords
@@ -51,7 +41,8 @@ export default class TheMap extends Component {
       },
       (error) => alert('Error: Are location services on?'),
       //(error) => alert(JSON.stringify(error)),
-      {enableHighAccuracy: true}
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+      //{enableHighAccuracy: true}
     )
   }
   onPressMarker (markerData) {
@@ -94,31 +85,24 @@ export default class TheMap extends Component {
           })
         },
         (error) => alert('Error: Are location services on?'),
-        {enableHighAccuracy: true}
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
       );
       this.watchID = navigator.geolocation.watchPosition(
         ({coords}) => {
-          const {latitude, longitude} = coords
+          const {lat, long} = coords
           this.setState({
             position: {
-              latitude,
-              longitude,
-            },
-            region: {
-              latitude,
-              longitude,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.001,
+              lat,
+              long
             }
           })
       });
     }
-
+    componentWillUnmount() {
+      navigator.geolocation.clearWatch(this.watchID);
+    }
   render() {
     var markers = this.state.markers || [];
-    //let region = this.state.newLocation ? this.state.region : this.props.region;
-    //let position = this.state.newLocation ? this.state.position : this.props.position;
-   //const {region, position} = this.state
     const { height: windowHeight } = Dimensions.get('window');
     const varTop = windowHeight - 125;
     const hitSlop = {
@@ -126,6 +110,12 @@ export default class TheMap extends Component {
       bottom: 15,
       left: 15,
       right: 15,
+    }
+    const initialRegion = {
+        latitude: 39.4961,
+        longitude: -88.1762,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.001
     }
     bbStyle = function(vheight) {
       return {
@@ -165,7 +155,9 @@ export default class TheMap extends Component {
           style={styles.map}
           region={this.state.region}
           showsUserLocation={true}
-          followsUserLocation={true}
+          moveOnMarkerPress={false}
+          initialRegion={initialRegion}
+          showsCompass={true}
         >
           {markers.map(marker => (
             <MapView.Marker

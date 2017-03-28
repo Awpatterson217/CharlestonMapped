@@ -69,7 +69,7 @@ var checkForKeys = new Promise(function(resolve, reject){
       console.log(keys);
       //resolve(keys);
     }else{
-      makeInitialRequest();
+      //makeInitialRequest();
       console.log('madeInitialRequest');
       getAllMyKeys.then((keys) => {
         console.log('keys.length: ' + keys.length);

@@ -18,11 +18,14 @@ https://www.ruskinarc.com/charleston-historic-preservati/charleston-historic-pre
 <pre><b>Uses data collected by the Charleston Historic Preservation Commission:</b> 
 http://www.charlestonillinoishpc.org/</pre> 
 
-<pre><b>Background image location:</b>         
+<pre><b>lincoln.jpg location:</b>         
 https://commons.wikimedia.org/wiki/File:Lincoln_Log_Cabin_2.jpg</pre> 
 
-<pre><b>Background image author:</b>           
+<pre><b>lincoln.jpg author:</b>           
 Daniel Schwen, https://commons.wikimedia.org/wiki/User:Dschwen</pre>
+
+<pre><b>info.jpg</b>           
+Visual Pharm, https://www.iconfinder.com/icons/27854/about_i_information_icon#size=256</pre>
 
 <hr>
 <h5>Libraries used:</h5>
