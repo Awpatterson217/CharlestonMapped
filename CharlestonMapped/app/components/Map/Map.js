@@ -1,8 +1,8 @@
 // @flow
 import {
-  AppRegistry,
-  TouchableOpacity,
   TouchableHighlight,
+  TouchableOpacity,
+  AppRegistry,
   Dimensions,
   StyleSheet,
   Image,
@@ -11,6 +11,10 @@ import {
  } from 'react-native';
  import React, { Component } from 'react';
  import MapView from 'react-native-maps'
+
+ import {
+   myAPI,
+ } from '../../API/Api';
 
 export default class TheMap extends Component {
   constructor(props){
@@ -40,12 +44,10 @@ export default class TheMap extends Component {
         })
       },
       (error) => alert('Error: Are location services on?'),
-      //(error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      //{enableHighAccuracy: true}
     )
   }
-  onPressMarker (markerData) {
+  onPressMarker(markerData) {
     this.setState({ openedMarker: markerData });
     this.refs.map.animateToRegion({
         latitude: parseFloat(markerData.latitude),
@@ -54,53 +56,42 @@ export default class TheMap extends Component {
         longitudeDelta: 0.001
     });
   }
-  updateMarkers(payload) {
-        var markers = []
-        let id = 0
-        _.forOwn(payload, function(value, key) {
-            markers.push({
-                coordinate: value.coordinates,
-                key: id++
-            });
-        })
-        this.setState({markers: newArrayOfCoordinates})
-    }
   componentDidMount() {
-      console.log('componentDidMount.');
-      //updateMarkers({JSON.stringify(this.state.historicSites)});
-      navigator.geolocation.getCurrentPosition(
-        ({coords}) => {
-          const {latitude, longitude} = coords
-          this.setState({
-            position: {
-              latitude,
-              longitude,
-            },
-            region: {
-              latitude,
-              longitude,
-              latitudeDelta: 0.005,
-              longitudeDelta: 0.001,
-            }
-          })
-        },
-        (error) => alert('Error: Are location services on?'),
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-      );
-      this.watchID = navigator.geolocation.watchPosition(
-        ({coords}) => {
-          const {lat, long} = coords
-          this.setState({
-            position: {
-              lat,
-              long
-            }
-          })
-      });
-    }
+    console.log('componentDidMount.');
+    var markers = []
+    myAPI.getMarkerCoords().then(response => {
+      let responseLength = response.length;
+      for(let key = 0; key < responseLength; key++){
+        console.log(response[key]);
+        markers[key] = {
+          coords: {
+            lat: response[key].lat,
+            long: response[key].long,
+          },
+          id: response[key].id,
+          street: response[key].street,
+          date: response[key].date,
+          style: response[key].style,
+          stories: response[key].stories
+        }
+      }
+      this.setState({markers: markers})
+    });
+    this.watchID = navigator.geolocation.watchPosition(
+      ({coords}) => {
+        const {lat, long} = coords
+        this.setState({
+          position: {
+            lat,
+            long
+          }
+        })
+    });
+  }
     componentWillUnmount() {
       navigator.geolocation.clearWatch(this.watchID);
     }
+
   render() {
     var markers = this.state.markers || [];
     const { height: windowHeight } = Dimensions.get('window');
@@ -117,7 +108,7 @@ export default class TheMap extends Component {
         latitudeDelta: 0.015,
         longitudeDelta: 0.001
     }
-    bbStyle = function(vheight) {
+    fmStyle = function(vheight) {
       return {
         position: 'absolute',
         top: vheight,
@@ -139,7 +130,7 @@ export default class TheMap extends Component {
               <Image style={styles.image} source={require('../../Assets/back.png')} />
           </TouchableHighlight>
         </View>
-        <View style={bbStyle(varTop)}>
+        <View style={fmStyle(varTop)}>
           <TouchableOpacity
             hitSlop = {hitSlop}
             activeOpacity={0.7}
@@ -161,20 +152,37 @@ export default class TheMap extends Component {
         >
           {markers.map(marker => (
             <MapView.Marker
-              key={marker.key}
+              key={marker.id}
               coordinate={{
-                latitude: marker.lat,
-                longitude: marker.long
+                latitude: marker.coords.lat,
+                longitude: marker.coords.long,
               }}
-              title={marker.title}
-              desc={marker.desc}
+              street={marker.street}
             >
-            <MapView.Callout>
-              <View>
-                <Text>{this.title}</Text>
-                <Text>{this.desc}</Text>
-              </View>
-            </MapView.Callout>
+              <MapView.Callout style={{width: 200, height: 125}}>
+                <View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{fontWeight: 'bold'}}>Address: </Text>
+                    <Text>{marker.street}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{fontWeight: 'bold'}}>Est Construction Date: </Text>
+                    <Text>{marker.date}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{fontWeight: 'bold'}}>stories: </Text>
+                    <Text>{marker.stories}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{fontWeight: 'bold'}}>style: </Text>
+                    <Text>{marker.style}</Text>
+                  </View>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{fontWeight: 'bold'}}>stories: </Text>
+                    <Text>{marker.stories}</Text>
+                </View>
+              </MapView.Callout>
             </MapView.Marker>
           ))}
         </MapView>
@@ -235,5 +243,3 @@ const styles = StyleSheet.create({
     height: 25,
   },
 })
-
-AppRegistry.registerComponent('TheMap', () => TheMap);

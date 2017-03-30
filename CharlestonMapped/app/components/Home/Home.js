@@ -3,20 +3,14 @@ import {
   TouchableHighlight,
   AppRegistry,
   StyleSheet,
-  Text,
   Image,
-  View
+  View,
+  theRes
 } from 'react-native';
 import React, { Component, PropTypes } from 'react';
 
 import {
-  makeInitialRequest,
-  getMarkerCoords,
-  getAllMyKeys,
-  clearAllKeys,
-  checkForKeys,
-  getTestObj,
-  getMultiObj
+   myAPI,
 } from '../../API/Api';
 
 export default class Home extends Component {
@@ -31,6 +25,20 @@ export default class Home extends Component {
       }
     })
   }
+  _startUp(){
+    myAPI.hasData().then((data) => {
+      if(data){
+        console.log("App has data");
+      }else{
+        console.log("App does not data");
+        myAPI.makeInitialRequest();
+      }
+    });
+  }
+  componentDidMount() {
+    this._startUp();
+  }
+
   render() {
     const hitSlop = {
       top: 5,
@@ -46,33 +54,30 @@ export default class Home extends Component {
     }
     return(
       <Image source={require('../../Assets/lincoln.jpg')} style={styles.backgroundImage}>
-      <View style={styles.topContainer}>
-      </View>
-      <View style={styles.buttonContainer}>
-
-
-          </View>
+        <View style={styles.topContainer}>
+        </View>
         <View style={styles.buttonContainer}>
-
+        </View>
+        <View style={styles.buttonContainer}>
            <TouchableHighlight
              hitSlop = {hitSlop}
              activeOpacity={0.4}
              style={styles.button}
-             onPress={ () =>  getMarkerCoords()} >
+             onPress={ () =>  alert("Hi.")} >
              <Image style={styles.infoImage} source={require('../../Assets/info.png')} />
            </TouchableHighlight>
            <TouchableHighlight
              hitSlop = {hitSlop}
              activeOpacity={0.4}
              style={styles.button}
-             onPress={ () =>  clearAllKeys()} >
-         <Image style={styles.image} source={require('../../Assets/gear.png')} />
+             onPress={ () =>  alert("Work in progress!!")} >
+             <Image style={styles.image} source={require('../../Assets/gear.png')} />
            </TouchableHighlight>
            <TouchableHighlight
              hitSlop = {hitSlop}
              activeOpacity={0.4}
              style={styles.button}
-             onPress={ () => this._navigate() } >
+             onPress={ () => this._navigate()} >
              <Image style={styles.image} source={require('../../Assets/map.png')} />
            </TouchableHighlight>
          </View>
@@ -126,5 +131,3 @@ width: 80,
 height: 80,
 },
 })
-
-AppRegistry.registerComponent('Home', () => Home);

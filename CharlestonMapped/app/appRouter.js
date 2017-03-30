@@ -4,18 +4,8 @@ import {
   Navigator
  } from 'react-native';
  import React, { Component } from 'react';
-
 import Home from './components/Home/Home';
 import TheMap from './components/Map/Map';
-import {
-  makeInitialRequest,
-  getMarkerCoords,
-  getAllMyKeys,
-  clearAllKeys,
-  checkForKeys,
-  getMultiObj,
-  getTestObj
-} from './API/Api';
 
 export default class App extends Component {
 _navigate(property){
@@ -40,10 +30,11 @@ renderScene(route, navigator) {
     return(
       <Navigator
         configureScene={(route, routeStack) => Navigator.SceneConfigs.FloatFromRight}
-        initialRoute={{ name: 'Home' }}
-        renderScene={ this.renderScene }
+        initialRoute={{name: 'Home'}}
+        renderScene={this.renderScene}
       />
     );
   }
 }
+
 AppRegistry.registerComponent('App', () => App);
