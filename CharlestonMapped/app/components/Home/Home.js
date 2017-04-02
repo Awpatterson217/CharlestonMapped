@@ -11,6 +11,7 @@ import React, { Component, PropTypes } from 'react';
 
 import {
    myAPI,
+   makeDetailedRequest
 } from '../../API/Api';
 
 export default class Home extends Component {
@@ -63,7 +64,7 @@ export default class Home extends Component {
              hitSlop = {hitSlop}
              activeOpacity={0.4}
              style={styles.button}
-             onPress={ () =>  alert("Hi.")} >
+             onPress={ () =>  makeDetailedRequest()} >
              <Image style={styles.infoImage} source={require('../../Assets/info.png')} />
            </TouchableHighlight>
            <TouchableHighlight

@@ -94,7 +94,7 @@ const makeInitialRequest = function(response){
     .then(function(response) {
       console.log("Initial request made to RuskinArc");
         if(response.status == 200) return response.json();
-        else throw new Error('Something went wrong on api server!');
+        else throw new Error('Something went wrong on server!');
     })
     .then(function(response) {
       for(var key in response){
@@ -190,6 +190,24 @@ var clearAllKeys = function(){
     }
   });
 }
+const testURL = "EXCLUDED"
+const makeDetailedRequest = () => {
+  const initialURL = 'EXCLUDED';
+  var myRequest = new Request(initialURL, {method: 'GET', headers:{'X-Requested-With':'XMLHttpRequest'}});
+  fetch(myRequest)
+    .then(function(response) {
+      console.log("Detailed request made to RuskinArc");
+        if(response.status == 200) return response.text();
+        else throw new Error('Something went wrong on server!');
+    })
+    .then(function(response) {
+      console.log(response);
+      //console.log(JSON.parse(response));
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
+}
 var getMultiObj = function(){
 AsyncStorage.multiGet(['10','11'], (err, stores) => {
   stores.map( (result, i, store) => {
@@ -200,5 +218,6 @@ AsyncStorage.multiGet(['10','11'], (err, stores) => {
 });
 }
 export {
-myAPI
+myAPI,
+makeDetailedRequest
 };
